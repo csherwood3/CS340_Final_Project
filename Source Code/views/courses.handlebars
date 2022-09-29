@@ -1,0 +1,110 @@
+<!-- NAV BAR -->
+{{> navbar_partial}}
+<!-- NAV BAR -->
+
+<h1>Courses</h1>
+
+<div class="row justify-content-center mb-3">
+  <form class="form-inline" method="get">
+    <label for="filter_type" class="m-1">Search By: </label>
+    <select class="form-control m-1" name="filter_type" required onchange="window.location.href='/courses?filter_type=' + this.value">
+			<option value="by_name" {{#ifCond filter_type "==" "by_name"}}selected{{/ifCond}}>Course Name</option>
+			<option value="by_year_term" {{#ifCond filter_type "==" "by_year_term"}}selected{{/ifCond}}>Year / Term</option>
+			<option value="by_instructor_name" {{#ifCond filter_type "==" "by_instructor_name"}}selected{{/ifCond}}>Instructor</option>
+		</select>
+    {{#ifCond filter_type "==" "by_name"}}
+      <label for="name" class="m-1">Course Name: </label>
+      <input type="text" class="form-control m-1" name="name" value="{{name}}" />
+    {{/ifCond}}
+    {{#ifCond filter_type "==" "by_year_term"}}
+      <label for="year" class="m-1">Year: </label>
+      <input type="number" class="form-control m-1" name="year" value="{{year}}" />
+      <label for="term" class="m-1">Term: </label>
+      <select class="form-control m-1" name="term">
+        <option></option>
+        <option value="Spring" {{#ifCond term "==" "Spring"}}selected{{/ifCond}}>Spring</option>
+        <option value="Summer" {{#ifCond term "==" "Summer"}}selected{{/ifCond}}>Summer</option>
+        <option value="Fall" {{#ifCond term "==" "Fall"}}selected{{/ifCond}}>Fall</option>
+        <option value="Winter" {{#ifCond term "==" "Winter"}}selected{{/ifCond}}>Winter</option>
+      </select>
+    {{/ifCond}}
+    {{#ifCond filter_type "==" "by_instructor_name"}}
+      <label for="instructor_name" class="m-1">Instructor Name: </label>
+      <input type="text" class="form-control m-1" name="instructor_name" value="{{instructor_name}}" />
+    {{/ifCond}}
+    <button type="submit" class="btn btn-primary m-1">Search</button>
+  </form>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Year</th>
+      <th scope="col">Term</th>
+      <th scope="col">Instructor</th>
+      <th scope="col">Textbook</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each courses}}
+      <tr>
+        <td scope="row">{{name}}</td>
+        <td>{{year}}</td>
+        <td>{{term}}</td>
+        <td>{{instructor_name}}</td>
+        <td>{{textbook_title}}</td>
+        <td>
+          <a class="btn btn-primary" href="/courses/{{course_id}}">Edit</a>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" onclick="deleteItem('courses', {{course_id}})">
+            Delete
+          </button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h2>Add Course</h2>
+
+<form method="post">
+  <div class="form-group">
+    <label for="name">Course name</label>
+    <input type="text" class="form-control" name="name" required />
+  </div>
+  <div class="form-group">
+    <label for="year">Course year</label>
+    <input type="number" class="form-control" name="year" required />
+  </div>
+  <div class="form-group">
+    <label for="term">Course term</label>
+		<select class="form-control" name="term" required>
+			<option value="Spring">Spring</option>
+			<option value="Summer">Summer</option>
+			<option value="Fall">Fall</option>
+			<option value="Winter">Winter</option>
+		</select>
+  </div>
+  <div class="form-group">
+    <label for="instructor_id">Instructor</label>
+    <select class="form-control" name="instructor_id" required>
+      {{#each instructors}}
+        <option value="{{instructor_id}}">{{first_name}} {{last_name}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="textbook_id">Textbook</label>
+    <select class="form-control" name="textbook_id">
+      <option></option>
+      {{#each textbooks}}
+        <option value="{{textbook_id}}">{{name}} ({{author}})</option>
+      {{/each}}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Course</button>
+</form>

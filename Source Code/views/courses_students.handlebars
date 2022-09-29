@@ -1,0 +1,80 @@
+<!-- NAV BAR -->
+{{> navbar_partial}}
+<!-- NAV BAR -->
+
+<h1>Courses_Students</h1>
+
+<div class="row justify-content-center mb-3">
+  <form class="form-inline" method="get">
+    <label for="filter_type" class="m-1">Search By: </label>
+    <select class="form-control m-1" name="filter_type" required onchange="window.location.href='/courses-students?filter_type=' + this.value">
+      <option value="by_name" {{#ifCond filter_type "==" "by_name"}} selected{{/ifCond}}>Course Name</option>
+      <option value="by_student_name" {{#ifCond filter_type "==" "by_student_name"}} selected{{/ifCond}}>Student Name</option>
+    </select>
+
+    {{#ifCond filter_type "==" "by_name"}}
+      <label for="name" class="m-1">Course Name: </label>
+      <input type="text" class="form-control m-1" name="name" value="{{name}}" />
+    {{/ifCond}}
+
+    {{#ifCond filter_type "==" "by_student_name"}}
+      <label for="student_name" class="m-1">Student Name: </label>
+      <input type="text" class="form-control m-1" name="student_name" value="{{student_name}}" />
+    {{/ifCond}}
+
+    <button type="submit" class="btn btn-primary m-1">Search</button>
+  </form>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Course Name</th>
+      <th scope="col">Year</th>
+      <th scope="col">Term</th>
+      <th scope="col">Student Name</th>
+      <th scope="col">Student Program Type</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each courses_students}}
+      <tr>
+        <td scope="row">{{name}}</td>
+        <td>{{year}}</td>
+        <td>{{term}}</td>
+        <td>{{student_name}}</td>
+        <td>{{student_type}}</td>
+        <td>
+          <button type="button" class="btn btn-danger" onclick="deleteCourseStudentRel({{course_id}}, {{student_id}})">
+            Delete
+          </button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h2>Add Course-Student Relationship</h2>
+
+<form method="post">
+  <div class="form-group">
+    <label for="course_id">Course</label>
+    <select class="form-control" name="course_id" required>
+      <option></option>
+      {{#each courses}}
+        <option value="{{course_id}}">{{name}}, {{term}} {{year}} </option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="student_id">Student</label>
+    <select class="form-control" name="student_id" required>
+      <option></option>
+      {{#each students}}
+        <option value="{{student_id}}">{{first_name}} {{last_name}}, {{type}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Course</button>
+</form>

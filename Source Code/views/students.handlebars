@@ -1,0 +1,77 @@
+<!-- NAV BAR -->
+{{> navbar_partial}}
+<!-- NAV BAR -->
+
+<h1>Students</h1>
+
+<div class="row justify-content-center mb-3">
+  <form class="form-inline" method="get">
+    <label for="name" class="m-1">Student Name: </label>
+    <input type="text" class="form-control m-1" name="name" value="{{name}}" />
+    <label for="type" class="m-1">Program Type: </label>
+    <select class="form-control m-1" name="type">
+      <option></option>
+      <option value="Undergraduate" {{#ifCond type "==" "Undergraduate"}} selected{{/ifCond}}>Undergraduate</option>
+      <option value="Graduate" {{#ifCond type "==" "Graduate"}} selected{{/ifCond}}>Graduate</option>
+      <option value="Post-Bacc" {{#ifCond type "==" "Post-Bacc"}} selected{{/ifCond}}>Post-Bacc</option>
+    </select>
+    <button type="submit" class="btn btn-primary m-1">Search</button>
+  </form>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Program Type</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each students}}
+      <tr>
+        <td scope="row">{{first_name}}</td>
+        <td>{{last_name}}</td>
+        <td>{{email}}</td>
+        <td>{{type}}</td>
+        <td>
+          <a class="btn btn-primary" href="/students/{{student_id}}">Edit</a>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" onclick="deleteItem('students', {{student_id}})">
+            Delete
+          </button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h2>Add Student</h2>
+
+<form method="post">
+  <div class="form-group">
+    <label for="first_name">First name</label>
+    <input type="text" class="form-control" name="first_name" required />
+  </div>
+  <div class="form-group">
+    <label for="last_name">Last name</label>
+    <input type="text" class="form-control" name="last_name" required />
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" name="email" required />
+  </div>
+  <div class="form-group">
+    <label for="type">Program Type</label>
+    <select class="form-control" name="type" required>
+			<option value="Undergraduate">Undergraduate</option>
+			<option value="Graduate">Graduate</option>
+			<option value="Post-Bacc">Post-Bacc</option>
+		</select>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Student</button>
+</form>

@@ -1,0 +1,23 @@
+<!-- NAV BAR -->
+{{> navbar_partial}}
+<!-- NAV BAR -->
+
+<h2>Update Textbook</h2>
+
+<form id="update-form">
+  <input type="hidden" id="update-item-path" value="textbooks" />
+  <input type="hidden" id="update-item-id" value="{{textbook.textbook_id}}" />
+    <div class="form-group">
+      <label for="textbook_isbn">ISBN</label>
+      <input type="text" class="form-control" name="textbook_isbn" value="{{textbook.textbook_isbn}}" />
+    </div>
+    <div class="form-group">
+      <label for="name">Title</label>
+      <input type="text" class="form-control" name="name" value="{{textbook.name}}" required />
+    </div>
+    <div class="form-group">
+      <label for="author">author</label>
+      <input type="text" class="form-control" name="author" value="{{textbook.author}}" required />
+    </div>
+  <button type="submit" class="btn btn-primary">Update Textbook</button>
+</form>

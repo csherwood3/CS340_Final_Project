@@ -1,0 +1,80 @@
+<!-- NAV BAR -->
+{{> navbar_partial}}
+<!-- NAV BAR -->
+
+<h1>Textbooks</h1>
+
+<div class="row justify-content-center mb-3">
+  <form class="form-inline" method="get">
+    <label for="filter_type" class="m-1">Search By: </label>
+    <select class="form-control m-1" name="filter_type" required onchange="window.location.href='/textbooks?filter_type=' + this.value">
+            <option value="by_name" {{#ifCond filter_type "==" "by_name"}}selected{{/ifCond}}>Textbook Title</option>
+            <option value="by_isbn" {{#ifCond filter_type "==" "by_isbn"}}selected{{/ifCond}}>ISBN</option>
+            <option value="by_author" {{#ifCond filter_type "==" "by_author"}}selected{{/ifCond}}>Author</option>
+      </select>
+      
+    {{#ifCond filter_type "==" "by_name"}}
+      <label for="name" class="m-1">Textbook Title: </label>
+      <input type="text" class="form-control m-1" name="name" value="{{name}}" />
+    {{/ifCond}}
+    
+    {{#ifCond filter_type "==" "by_isbn"}}
+      <label for="isbn" class="m-1">Textbook ISBN: </label>
+      <input type="text" class="form-control m-1" name="isbn" value="{{isbn}}" />
+    {{/ifCond}}
+    
+    {{#ifCond filter_type "==" "by_author"}}
+      <label for="author" class="m-1">Textbook Author: </label>
+      <input type="text" class="form-control m-1" name="author" value="{{author}}" />
+    {{/ifCond}}
+    
+    <button type="submit" class="btn btn-primary m-1">Search</button>
+  </form>
+</div>
+      
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ISBN</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each textbooks}}
+      <tr>
+        <td scope="row">{{textbook_isbn}}</td>
+        <td>{{name}}</td>
+        <td>{{author}}</td>
+        <td>
+          <a class="btn btn-primary" href="/textbooks/{{textbook_id}}">Edit</a>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" onclick="deleteItem('textbooks', {{textbook_id}})">
+            Delete
+          </button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h2>Add Textbook</h2>
+
+<form method="post">
+  <div class="form-group">
+    <label for="textbook_isbn">ISBN</label>
+    <input type="text" class="form-control" name="textbook_isbn" />
+  </div>
+  <div class="form-group">
+    <label for="name">Title</label>
+    <input type="text" class="form-control" name="name" required />
+  </div>
+  <div class="form-group">
+    <label for="author">author</label>
+    <input type="text" class="form-control" name="author" required />
+  </div>
+  <button type="submit" class="btn btn-primary">Add Textbook</button>
+</form>

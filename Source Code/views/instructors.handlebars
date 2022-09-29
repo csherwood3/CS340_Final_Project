@@ -1,0 +1,60 @@
+<!-- NAV BAR -->
+{{> navbar_partial}}
+<!-- NAV BAR -->
+
+<h1>Instructors</h1>
+
+<div class="row justify-content-center mb-3">
+  <form class="form-inline" method="get">
+    <label for="name" class="m-1">Instructor Name: </label>
+    <input type="text" class="form-control m-1" name="name" value="{{name}}" />
+    <button type="submit" class="btn btn-primary m-1">Search</button>
+  </form>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each instructors}}
+      <tr>
+        <td scope="row">{{first_name}}</td>
+        <td>{{last_name}}</td>
+        <td>{{email}}</td>
+        <td>
+          <a class="btn btn-primary" href="/instructors/{{instructor_id}}">Edit</a>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" onclick="deleteItem('instructors', {{instructor_id}})">
+            Delete
+          </button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h2>Add Instructor</h2>
+
+<form method="post">
+  <div class="form-group">
+    <label for="first_name">First name</label>
+    <input type="text" class="form-control" name="first_name" required />
+  </div>
+  <div class="form-group">
+    <label for="last_name">Last name</label>
+    <input type="text" class="form-control" name="last_name" required />
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" name="email" required />
+  </div>
+  <button type="submit" class="btn btn-primary">Add Instructor</button>
+</form>

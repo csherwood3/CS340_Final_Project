@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">SDIT Academic Database</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link {{#ifCond page "==" "instructors"}}active{{/ifCond}}" href='/instructors'>Instructors</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{#ifCond page "==" "courses"}}active{{/ifCond}}" href='/courses'>Courses</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{#ifCond page "==" "textbooks"}}active{{/ifCond}}" href='/textbooks'>Textbooks</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{#ifCond page "==" "students"}}active{{/ifCond}}" href='/students'>Students</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{#ifCond page "==" "courses-students"}}active{{/ifCond}}" href='/courses-students'>Courses_Students</a>
+      </li>
+    </ul>
+  </div>
+</nav>
